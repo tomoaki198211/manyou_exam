@@ -12,12 +12,12 @@
   <% end %>
   <h1>タスク</h1>
   <div class="field">
-    <%= form.label "タスク名" %>
+    <%= form.label :task_name, "タスク名" %>
     <%= form.text_field :task_name %>
   </div>
 
     <div class="field">
-    <%= form.label "内容" %>
+    <%= form.label :task_detail, "内容" %>
     <%= form.text_field :task_detail %>
   </div>
   <%= form.submit %>
