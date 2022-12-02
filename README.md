@@ -17,3 +17,8 @@ heroku へのデプロイ手順
 - heroku にアプリケーションをコンパイルする為にビルドパックを追加
 - heroku に node.js のビルドパックを追加
 - heroku にデプロイする。ブランチが master でない場合は git push heroku master:step2 などとする
+- stack のバージョンを下げる必要がある場合、下記のコマンドで切り替える。
+  heroku stack:set heroku-20
+- Failed to install gems via Bundler.が出た場合下のコマンドで対応
+  bundle lock --add-platform x86_64-linux
+- Precompiling assets failed.が出た場合
