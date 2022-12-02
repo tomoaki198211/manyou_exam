@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>タスク名</strong>
+  <%= @task.task_name %>
+</p>
+<p>
+  <strong>内容</strong>
+  <%= @task.task_detail %>
+</p>
+<%= link_to '戻る', tasks_path %>
