@@ -6,9 +6,11 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
+        date = Date.new(2021,10,17)
         visit new_task_path
         fill_in "タスク名", with: 'updated_1'
         fill_in "内容", with: 'updated_2'
+        fill_in "終了期限", with: date
         click_button "登録する"
         expect(page).to have_content 'updated_1'
       end
@@ -31,7 +33,17 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit tasks_path
         task_list = all('.task_row')
         expect(task_list.first).to have_content '2個'
-        binding.irb
+      end
+    end
+
+    context 'タスクが終了期限の降順に並んでいる場合' do
+      it '終了期限が遅いタスクが一番上に表示される' do
+        @task1 = task
+        @task2 = task2
+        visit tasks_path
+        click_link "終了期限でソートする"
+        task_list = all('.task_row')
+        expect(task_list.first).to have_content 'test_task_detail'
       end
     end
   end
