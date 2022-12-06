@@ -1,10 +1,6 @@
 class TasksController < ApplicationController
   def index
-    if params[:sort_expired]
-      @tasks = Task.all.order(expiry_date: "DESC")
-    else
-      @tasks = Task.all.order(created_at: "DESC")
-    end
+    @tasks = Task.all.order(created_at: "DESC")
   end
 
   def new
@@ -44,6 +40,19 @@ class TasksController < ApplicationController
     end
   end
 
+  def search
+    if params[:expiry_keyword] == "降順"
+      @tasks = Task.search(params[:keyword]).expiry_order_desc
+    elsif params[:expiry_keyword] == "昇順"
+      @tasks = Task.search(params[:keyword]).expiry_order_asc
+    else
+      @tasks = Task.search(params[:keyword])
+    end
+    @keyword = params[:keyword]
+    @expiry_keyword = params[:expiry_keyword]
+    render :index
+  end
+
   private
 
   def set_task
@@ -51,6 +60,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    @task = params[:task].permit(:task_name, :task_detail, :expiry_date)
+    @task = params[:task].permit(:task_name, :task_detail, :expiry_date, :status)
   end
 end

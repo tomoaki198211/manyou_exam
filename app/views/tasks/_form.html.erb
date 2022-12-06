@@ -25,6 +25,11 @@
     <%= form.label :expiry_date, "終了期限" %>
     <%= form.date_field :expiry_date %>
   </div>
+
+  <div class="field">
+    <%= form.label :status, "ステータス" %>
+    <%= form.select :status,["未着手","着手中","完了"] %>
+  </div>
   <%= form.submit %>
 <% end %>
 <%= link_to '戻る', tasks_path %>
