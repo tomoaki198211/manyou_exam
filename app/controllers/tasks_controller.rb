@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.recent_order
+    @tasks = Task.all.recent_order.page(params[:page])
   end
 
   def new
@@ -43,7 +43,7 @@ class TasksController < ApplicationController
   def search
     search_params
     if @search.present?
-      @tasks = Task.sort_search(@search)
+      @tasks = Task.sort_search(@search).page(params[:page])
     end
     @keyword = @search[:keyword]
     @status = @search[:status]
