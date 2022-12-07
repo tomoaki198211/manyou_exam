@@ -7,7 +7,7 @@ class Task < ApplicationRecord
     完了: 3
   }
 
-  scope :recent_order, -> {order(created_at: :desc)}
+  scope :recent_order, -> {order(created_at: :DESC)}
   scope :expiry_order_desc, -> {order(expiry_date: :desc)}
   scope :expiry_order_asc, -> {order(expiry_date: :asc)}
 

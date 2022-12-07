@@ -3,9 +3,12 @@
 <h1>タスク一覧</h1>
 
 <%= form_with(url: search_tasks_path, scope: :task, local: true, method: :get) do |form| %>
+  <%= form.label :keyword, "タスク名" %>
   <%= form.text_field :keyword, value: @keyword, placeholder: "タイトル検索する" %>
-  ステータス：<%= form.select :status, Task.statuses.keys.to_a, include_blank: true, selected: @status %>
-  終了期限ソート：<%= form.select :expiry_keyword,["なし","降順","昇順"], selected: @expiry_keyword %>
+  <%= form.label :status, "ステータス:" %>
+  <%= form.select :status, Task.statuses.keys.to_a, include_blank: true, selected: @status %>
+  <%= form.label :expiry_keyword, "終了期限ソート:" %>
+  <%= form.select :expiry_keyword,["なし","降順","昇順"], selected: @expiry_keyword %>
   <%= form.submit "検索" %>
 <% end %>
 
