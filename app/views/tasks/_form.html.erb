@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :status, "ステータス" %>
-    <%= form.select :status,["未着手","着手中","完了"] %>
+    <%= form.select :status, Task.statuses.keys.to_a %>
   </div>
   <%= form.submit %>
 <% end %>

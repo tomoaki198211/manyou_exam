@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    @tasks = Task.all.recent_order
   end
 
   def new
@@ -41,19 +41,21 @@ class TasksController < ApplicationController
   end
 
   def search
-    if params[:expiry_keyword] == "降順"
-      @tasks = Task.search(params[:keyword]).expiry_order_desc
-    elsif params[:expiry_keyword] == "昇順"
-      @tasks = Task.search(params[:keyword]).expiry_order_asc
-    else
-      @tasks = Task.search(params[:keyword])
+    search_params
+    if @search.present?
+      @tasks = Task.sort_search(@search)
     end
-    @keyword = params[:keyword]
-    @expiry_keyword = params[:expiry_keyword]
+    @keyword = @search[:keyword]
+    @status = @search[:status]
+    @expiry_keyword = @search[:expiry_keyword]
     render :index
   end
 
   private
+
+  def search_params
+    @search = params.require(:task).permit(:keyword, :status, :expiry_keyword)
+  end
 
   def set_task
     @task = Task.find(params[:id])
