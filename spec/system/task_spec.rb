@@ -39,10 +39,20 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクが終了期限の降順に並んでいる場合' do
       it '終了期限が遅いタスクが一番上に表示される' do
         visit tasks_path
-        select '降順', from: '終了期限ソート'
+        select '期限▼', from: 'ソート'
         click_button "検索"
         task_list = all('.task_row')
         expect(task_list.first).to have_content 'test_task_detail'
+      end
+    end
+
+    context 'タスクが優先順位の降順に並んでいる場合' do
+      it '優先順位が高いタスクが一番上に表示される' do
+        visit tasks_path
+        select '優先▼', from: 'ソート'
+        click_button "検索"
+        task_list = all('.task_row')
+        expect(task_list.first).to have_content '2個'
       end
     end
   end
