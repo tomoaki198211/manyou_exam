@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    @tasks = Task.all.recent_order.page(params[:page])
   end
 
   def new
@@ -40,13 +40,28 @@ class TasksController < ApplicationController
     end
   end
 
+  def search
+    search_params
+    if @search.present?
+      @tasks = Task.sort_search(@search).page(params[:page])
+    end
+    @keyword = @search[:keyword]
+    @status = @search[:status]
+    @sort_keyword = @search[:sort_keyword]
+    render :index
+  end
+
   private
+
+  def search_params
+    @search = params.require(:task).permit(:keyword, :status, :sort_keyword)
+  end
 
   def set_task
     @task = Task.find(params[:id])
   end
 
   def task_params
-    @task = params[:task].permit(:task_name, :task_detail)
+    @task = params[:task].permit(:task_name, :task_detail, :expiry_date, :status, :priority)
   end
 end
