@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.recent_order.page(params[:page])
+    @tasks = current_user.tasks.recent_order.page(params[:page])
   end
 
   def new
@@ -9,6 +9,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
     if @task.save
       redirect_to tasks_path, notice:"登録しました"
     else
@@ -43,7 +44,7 @@ class TasksController < ApplicationController
   def search
     search_params
     if @search.present?
-      @tasks = Task.sort_search(@search).page(params[:page])
+      @tasks = current_user.tasks.sort_search(@search).page(params[:page])
     end
     @keyword = @search[:keyword]
     @status = @search[:status]
@@ -62,6 +63,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    @task = params[:task].permit(:task_name, :task_detail, :expiry_date, :status, :priority)
+    @task = params[:task].permit(:task_name, :task_detail, :expiry_date, :status, :priority, :user_id)
   end
 end
