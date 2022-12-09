@@ -23,6 +23,12 @@ header {
   padding-top: 30px;
 }
 
+.login_form {
+  width: 50%;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
 .list {
   font-size: 1rem;
 }

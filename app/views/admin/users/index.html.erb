@@ -1,23 +1,26 @@
 <div class="content">
   <h1>ユーザー管理画面</h1>
   <p id="notice"><%= notice %></p>
-
+  <%= link_to 'ユーザーを登録する', new_admin_user_path, class: 'btn btn-primary mb-3' %>
   <table class="table list">
     <thead>
       <tr>
         <th>ユーザー名</th>
         <th>メールアドレス</th>
         <th>タスク数</th>
-        <th>登録日時</th>
+        <th>管理権限</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
-
     <tbody>
       <% @users.each do |user| %>
         <tr class="">
           <td><%= user.name %></td>
           <td><%= user.email %></td>
-          <td><%= l user.created_at, format: :long %></td>
+          <td><%= user.tasks.count %></td>
+          <td><%= user.admin %></td>
           <td><%= link_to '詳細', admin_user_path(user), class: "btn btn-outline-primary btn-sm" %></td>
           <td><%= link_to '編集', edit_admin_user_path(user), class: "btn btn-outline-success btn-sm" %></td>
           <td><%= link_to '削除', admin_user_path(user), method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-outline-danger btn-sm" %></td>
@@ -25,8 +28,6 @@
       <% end %>
     </tbody>
   </table>
-
   <br>
-
 </div>
 

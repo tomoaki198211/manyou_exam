@@ -1,0 +1,32 @@
+<div class="content">
+  <h1><%= @user.name %>さんのタスク一覧</h1>
+  <p id="notice"><%= notice %></p>
+  <table class="table list">
+    <thead>
+      <tr>
+        <th>タスク名</th>
+        <th>内容</th>
+        <th>終了期限</th>
+        <th>登録日時</th>
+        <th>ステータス</th>
+        <th>優先順位</th>
+        <th>作成者</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.tasks.each do |task| %>
+        <tr class="task_row">
+          <td><%= task.task_name %></td>
+          <td><%= task.task_detail %></td>
+          <td><%= l task.expiry_date, format: :long %></td>
+          <td><%= l task.created_at, format: :long %></td>
+          <td><%= task.status %></td>
+          <td><%= task.priority %></td>
+          <td><%= task.user.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to '戻る', admin_users_path, class: 'btn btn-outline-success' %>
+</div>
+

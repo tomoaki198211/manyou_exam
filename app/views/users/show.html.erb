@@ -1,0 +1,13 @@
+<div class="detail">
+  <h1>マイページ</h1>
+  <strong>名前：</strong>
+  <p class="form-control mb-3">
+    <%= @user.name %>
+  </p>
+  <strong>email:</strong>
+  <p readonly class="form-control mb-3">
+    <%= @user.email %>
+  </p>
+  </p><%= link_to '戻る', tasks_path, class: 'btn btn-outline-success mt-3' %>
+</div>
+

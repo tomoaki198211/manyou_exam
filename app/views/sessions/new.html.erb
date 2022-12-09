@@ -1,11 +1,14 @@
-<h1>Log in</h1>
-<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
-
-  <%= f.label :email %>
-  <%= f.email_field :email %>
-
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-
-  <%= f.submit "Log in" %>
-<% end %>
+<div class="login_form">
+  <p><%= notice %></p>
+  <p class="text-center">ログイン</p>
+  <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+    <%= f.email_field :email, placeholder: "メールアドレス", class: "form-control mb-3"  %>
+    <%= f.password_field :password, placeholder: "パスワード", class: "form-control" %>
+    <div class="text-center">
+      <%= f.submit "ログイン", class: "btn btn-primary mt-3 w-100" %>
+    </div>
+  <% end %>
+  <div class="text-center border-top border-light mt-3">
+    <%= link_to "新しいアカウントを作成", new_user_path, class: "btn btn-success mt-3 w-100"%>
+  </div>
+</div>

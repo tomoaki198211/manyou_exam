@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def show
     set_user
-    redirect_to tasks_path if @user.id == current_user.id
+    redirect_to tasks_path unless @user.id == current_user.id
   end
 
   def destroy

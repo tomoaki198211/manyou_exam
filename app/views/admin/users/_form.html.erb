@@ -9,19 +9,16 @@
       </ul>
     </div>
   <% end %>
-  <p class="text-center">アカウント作成</p>
-  <%= form_with(model: @user, local: true) do |f| %>
+  <%= form_with(model: [:admin, @user], local: true) do |f| %>
     <%= f.text_field :name,  placeholder: "名前", class: "form-control mb-3" %>
     <%= f.email_field :email, placeholder: "メールアドレス", class: "form-control mb-3"  %>
+    <%= f.select :admin, ["true","false"], {},class: "form-control mb-3" %>
     <%= f.password_field :password, placeholder: "パスワード", class: "form-control mb-3" %>
     <%= f.password_field :password_confirmation, placeholder: "パスワード確認", class: "form-control" %>
     <div class="text-center">
-      <%= f.submit "アカウントを作成する", class: "btn btn-primary mt-3 text-center w-100" %>
+      <%= f.submit class: "btn btn-primary mt-3 text-center w-100" %>
     </div>
   <% end %>
-  <div class="text-center border-top border-light mt-3">
-    <%= link_to "既存のアカウントでログイン", new_session_path, class: "btn btn-success mt-3 w-100"%>
-  </div>
 </div>
 
 
