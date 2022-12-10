@@ -5,14 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)1
-1.times do |n|
-  name =  "adminuser"
-  email = "admin@1.com"
-  password = "admin"
-  admin = "true"
-  User.create!(name: name,
-              email: email,
-              password: password,
-              admin: admin
-  )
-end
+
+User.create!(name: "adminuser",
+            email: "admin@1.com"
+            password: "admin8888"
+            admin: true
+)
+
+User.create!(name: "user",
+  email: "user@1.com"
+  password: "user8888"
+  admin: false
+)
+
