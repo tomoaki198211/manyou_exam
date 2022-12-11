@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_08_130431) do
+ActiveRecord::Schema.define(version: 2022_12_11_085921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "labels", force: :cascade do |t|
+    t.string "label_name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "task_name", null: false
@@ -28,6 +34,15 @@ ActiveRecord::Schema.define(version: 2022_12_08_130431) do
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
+  create_table "tidies", force: :cascade do |t|
+    t.bigint "label_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["label_id"], name: "index_tidies_on_label_id"
+    t.index ["task_id"], name: "index_tidies_on_task_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -39,4 +54,6 @@ ActiveRecord::Schema.define(version: 2022_12_08_130431) do
   end
 
   add_foreign_key "tasks", "users"
+  add_foreign_key "tidies", "labels"
+  add_foreign_key "tidies", "tasks"
 end

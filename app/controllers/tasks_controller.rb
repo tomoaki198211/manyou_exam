@@ -49,13 +49,14 @@ class TasksController < ApplicationController
     @keyword = @search[:keyword]
     @status = @search[:status]
     @sort_keyword = @search[:sort_keyword]
+    @label_keyword = @search[:label_id]
     render :index
   end
 
   private
 
   def search_params
-    @search = params.require(:task).permit(:keyword, :status, :sort_keyword)
+    @search = params.require(:task).permit(:keyword, :status, :sort_keyword, :label_id)
   end
 
   def set_task
@@ -63,6 +64,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    @task = params[:task].permit(:task_name, :task_detail, :expiry_date, :status, :priority, :user_id)
+    @task = params[:task].permit(:task_name, :task_detail, :expiry_date, :status, :priority, :user_id, label_ids: [])
   end
 end

@@ -1,5 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :tidies, dependent: :destroy
+  has_many :labels, through: :tidies
   validates :task_name, :task_detail, :expiry_date, presence: true
 
   enum status: {

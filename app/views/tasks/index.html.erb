@@ -9,6 +9,8 @@
       <%= form.select :status, Task.statuses.keys.to_a, {selected: @status, include_blank: true}, class: 'form-control mb-2' %>
       <%= form.label :sort_keyword, "ソート:" %>
       <%= form.select :sort_keyword,["なし","期限▼","期限▲","優先▼","優先▲"], {selected: @sort_keyword }, class: 'form-control mb-3' %>
+      <%= form.label :label_keyword, "ラベル:" %>
+      <%= form.select :label_id, Label.all.collect{|p|[p.label_name, p.id]}, {selected: @label_keyword, include_blank: true }, class: 'form-control mb-3' %>
       <%= form.submit "検索", class: 'btn btn-outline-info mb-3' %>
     <% end %>
   </div>
@@ -25,7 +27,7 @@
         <th>ステータス</th>
         <th>優先順位</th>
         <th>作成者</th>
-        <th></th>
+        <th>ラベル</th>
         <th></th>
       </tr>
     </thead>
@@ -40,6 +42,11 @@
           <td><%= task.status %></td>
           <td><%= task.priority %></td>
           <td><%= task.user.name %></td>
+          <td>
+            <% task.labels.pluck(:label_name).each do |label| %>
+              <label class="btn btn-secondary btn-sm"><%= label %></label>
+            <% end %>
+          </td>
           <td><%= link_to '詳細', task, class: "btn btn-outline-primary btn-sm" %></td>
           <td><%= link_to '編集', edit_task_path(task), class: "btn btn-outline-success btn-sm" %></td>
           <td><%= link_to '削除', task, method: :delete, data: { confirm: '削除してよろしいですか？' }, class: "btn btn-outline-danger btn-sm" %></td>

@@ -37,6 +37,17 @@
       <%= form.label :priority, "優先順位" %>
       <%= form.select :priority, Task.priorities.keys.to_a, {},class: 'form-control mb-5'  %>
     </div>
+    <div class="mb-5">
+      <%= form.collection_check_boxes( :label_ids, Label.all, :id, :label_name) do |c| %>
+        <%= c.label class: "chkl" do %>
+          <%= c.check_box class: "chk" do %>
+            <%= c.check_box + c.text %>
+          <% end %>
+            <%= c.label{c.text} %>
+        <% end %>
+      <% end %>
+    </div>
+
     <%= form.submit class:'btn btn-primary mb-5' %>
   <% end %>
   <%= link_to '戻る', tasks_path, class: 'btn btn-outline-success' %>
