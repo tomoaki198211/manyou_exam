@@ -24,12 +24,26 @@ class Task < ApplicationRecord
 
   def self.search(search)
     search[:status] = nil if search[:status].blank?
-    if search[:keyword].present? && search[:status]
+    if search[:label_id].blank?
+      search[:label_id] = nil
+    else
+      task_id = Tidy.where(label_id: search[:label_id]).pluck(:task_id)
+    end
+
+    if search[:keyword].present? && search[:status] && search[:label_id]
+      Task.where("task_name LIKE ?", "%#{search[:keyword]}%").where(status: search[:status]).where(id: task_id)
+    elsif search[:keyword].present? && search[:status]
       Task.where("task_name LIKE ?", "%#{search[:keyword]}%").where(status: search[:status])
+    elsif search[:keyword].present? && search[:label_id]
+      Task.where("task_name LIKE ?", "%#{search[:keyword]}%").where(id: task_id)
+    elsif search[:status] && search[:label_id]
+      Task.where(status: search[:status]).where(id: task_id)
     elsif search[:keyword].present?
       Task.where("task_name LIKE ?", "%#{search[:keyword]}%")
     elsif search[:status].present?
       Task.where(status: search[:status])
+    elsif search[:label_id].present?
+      Task.where(id: task_id)
     else
       Task.all
     end

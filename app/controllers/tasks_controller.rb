@@ -43,6 +43,12 @@ class TasksController < ApplicationController
 
   def search
     search_params
+    # @tasks = current_user.tasks.recent_order.page(params[:page])
+    # task_id = Tidy.where(label_id: search_params[:label_id]).pluck(:task_id)
+    # @tasks = @tasks.where(id: task_id).page(params[:page])
+
+    # @tasks = current_user.tasks.recent_order.page(params[:page])
+    # @tasks = @tasks.joins(:labels).where(labels: {id: search_params[:label_id]}).page(params[:page])
     if @search.present?
       @tasks = current_user.tasks.sort_search(@search).page(params[:page])
     end
