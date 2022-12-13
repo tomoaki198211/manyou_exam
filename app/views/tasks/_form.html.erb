@@ -38,7 +38,7 @@
       <%= form.select :priority, Task.priorities.keys.to_a, {},class: 'form-control mb-5'  %>
     </div>
     <div class="mb-5">
-      <%= form.collection_check_boxes( :label_ids, Label.all, :id, :label_name) do |c| %>
+      <%= form.collection_check_boxes( :label_ids, Label.all, :id, :label_name, include_hidden: false) do |c| %>
         <%= c.label class: "chkl" do %>
           <%= c.check_box class: "chk" do %>
             <%= c.check_box + c.text %>

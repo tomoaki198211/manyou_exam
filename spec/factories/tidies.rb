@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :tidy do
-    user { nil }
-    task { nil }
+    label
+    task
   end
 end
