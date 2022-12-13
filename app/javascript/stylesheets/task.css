@@ -18,7 +18,7 @@ header {
 .content,
 .form_content,
 .detail {
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   padding-top: 30px;
 }
@@ -31,4 +31,12 @@ header {
 
 .list {
   font-size: 1rem;
+}
+
+.chk {
+  margin-right: 0.5rem;
+}
+.chkl {
+  font-size: 1.1rem;
+  margin-right: 2rem;
 }

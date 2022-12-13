@@ -23,6 +23,11 @@
   <strong>優先順位：</strong>
   <p class="form-control mb-5">
     <%= @task.priority %>
+  <div>
+    <% @task.labels.pluck(:label_name).each do |label| %>
+      <label class="btn btn-secondary btn-sm"><%= label %></label>
+    <% end %>
+  </div>
   </p><%= link_to '戻る', tasks_path, class: 'btn btn-outline-success' %>
 </div>
 

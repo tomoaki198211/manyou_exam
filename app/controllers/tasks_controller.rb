@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = current_user.tasks.recent_order.page(params[:page])
+    @tasks = current_user.tasks.includes(:labels).recent_order.page(params[:page])
   end
 
   def new
@@ -43,19 +43,25 @@ class TasksController < ApplicationController
 
   def search
     search_params
+    set_search_keyword(@search)
     if @search.present?
-      @tasks = current_user.tasks.sort_search(@search).page(params[:page])
+      @tasks = current_user.tasks.sort_search(@search).includes(:labels).page(params[:page])
     end
-    @keyword = @search[:keyword]
-    @status = @search[:status]
-    @sort_keyword = @search[:sort_keyword]
+    @tasks ||= current_user.tasks.includes(:labels).recent_order.page(params[:page])
     render :index
   end
 
   private
 
+  def set_search_keyword(search)
+    @keyword = search[:keyword]
+    @status = search[:status]
+    @sort_keyword = search[:sort_keyword]
+    @label_keyword = search[:label_id]
+  end
+
   def search_params
-    @search = params.require(:task).permit(:keyword, :status, :sort_keyword)
+    @search = params.require(:task).permit(:keyword, :status, :sort_keyword, :label_id)
   end
 
   def set_task
@@ -63,6 +69,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    @task = params[:task].permit(:task_name, :task_detail, :expiry_date, :status, :priority, :user_id)
+    @task = params[:task].permit(:task_name, :task_detail, :expiry_date, :status, :priority, :user_id, label_ids: [])
   end
 end
